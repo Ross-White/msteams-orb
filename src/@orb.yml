@@ -1,7 +1,7 @@
 version: 2.1
 
 description: >
-  Orb to send notification of deployments to MS Teams channels
+  Orb to send notification of app deployments to MS Teams channels
 # What will your orb allow users to accomplish?
 # Descriptions should be short, simple, and informative.
 
