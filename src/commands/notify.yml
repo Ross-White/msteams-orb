@@ -10,72 +10,16 @@ parameters:
     type: string
 steps:
   - run:
+      environment:
+        deployed_env: << parameters.deployed_env >>
+        webhook_url: << parameters.webhook_url >>   
+        CIRCLE_SHA1: $CIRCLE_SHA1
+        CIRCLE_PROJECT_USERNAME: $CIRCLE_PROJECT_USERNAME
+        CIRCLE_PROJECT_REPONAME: $CIRCLE_PROJECT_REPONAME
+        CIRCLE_BRANCH: $CIRCLE_BRANCH
+        CIRCLE_USERNAME: $CIRCLE_USERNAME
+        CIRCLE_REPOSITORY_URL: $CIRCLE_REPOSITORY_URL    
       name: Notify MS Teams
-      shell: bash
       when: on_sucess
-      command: |
-        DEV="https://www-dev.ecotricity.co.uk"
-        UAT="https://www-uat.ecotricity.co.uk"
-        PROD="https://www.ecotricity.co.uk"
+      command: <<include(scripts/notify.sh)>>
 
-        DEPLOYED_URL=$<< parameters.ENV >>
-
-        ENV=<< parameters.deployed_env >>
-
-        SHORT_SHA1=`echo -n $CIRCLE_SHA1 | head -c 7`
-
-        if [ `echo "$CIRCLE_REPOSITORY_URL" | grep "^git@github.com"` ]; then
-          COMMIT_LINK=\[$SHORT_SHA1\]\(https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME/commit/$CIRCLE_SHA1\)
-        elif [ `echo "$CIRCLE_REPOSITORY_URL" | grep "^git@bitbucket.org"` ];
-        then
-          COMMIT_LINK=\[$SHORT_SHA1\]\(https://bitbucket.org/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME/commit/$CIRCLE_SHA1\)
-        else
-          >&2 echo unknown version control system: $CIRCLE_REPOSITORY_URL
-          fail
-        fi
-
-        COMMIT_MESSAGE=`git log --format=%B -n 1 $CIRCLE_SHA1`
-        
-        # Note that the "\<<" in the heredoc declaration is escaped from
-        # CircleCI's parameters syntax.
-        MS_TEAMS_MSG_TEMPLATE=$(cat \<<END_HEREDOC
-        {
-          "@type": "MessageCard",
-          "@context": "http://schema.org/extensions",
-          "themeColor": "14a603",
-          "summary": "CircleCI Deployment Notification",
-          "sections": [
-            {
-              "activityTitle": "## $CIRCLE_BRANCH deployed to [$ENV]($DEPLOYED_URL)",
-              "facts": [
-                {
-                  "name": "Author",
-                  "value": "$CIRCLE_USERNAME"
-                },
-                {
-                  "name": "Revision",
-                  "value": "$COMMIT_LINK"
-                },
-                {
-                  "name": "Commit",
-                  "value": "$COMMIT_MESSAGE"
-                }
-              ],
-              "markdown": true
-            }
-          ]
-        }
-        END_HEREDOC
-        )
-
-        echo "$MS_TEAMS_MSG_TEMPLATE" > .ms_teams_message
-
-        MS_TEAMS_WEBHOOK_URL=<< parameters.webhook_url >>
-        
-        cat .ms_teams_message
-
-        echo $MS_TEAMS_WEBHOOK_URL
-
-        curl --fail-with-body -H "Content-Type: application/json" \
-              --data-binary @.ms_teams_message \
-              $MS_TEAMS_WEBHOOK_URL  
