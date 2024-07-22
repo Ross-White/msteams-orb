@@ -20,5 +20,4 @@ steps:
         CIRCLE_USERNAME: $CIRCLE_USERNAME
         CIRCLE_REPOSITORY_URL: $CIRCLE_REPOSITORY_URL
       name: Notify MS Teams
-      when: on_sucess
-      command: << include(scripts/notify.sh) >>
+      command: <<include(scripts/notify.sh)>>
