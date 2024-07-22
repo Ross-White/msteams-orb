@@ -2,9 +2,6 @@ description: >
   This command will post a notification to the MS teams webhook url, containing deployment info.
 
 parameters:
-  webhook_url:
-    description: The MS Teams Webhook URL
-    type: string
   deployed_env:
     description: The environment being deployed
     type: string
@@ -12,6 +9,5 @@ steps:
   - run:
       environment:
         deployed_env: << parameters.deployed_env >>
-        webhook_url: << parameters.webhook_url >>
       name: Notify MS Teams
       command: <<include(scripts/notify.sh)>>
