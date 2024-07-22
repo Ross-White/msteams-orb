@@ -5,9 +5,13 @@ parameters:
   deployed_env:
     description: The environment being deployed
     type: string
+  webhook_url:
+    description: The configured URL for the message to be posted to
+    type: string
 steps:
   - run:
       environment:
         deployed_env: << parameters.deployed_env >>
+        webhook_url: << parameter.webhook_url >>
       name: Notify MS Teams
       command: <<include(scripts/notify.sh)>>

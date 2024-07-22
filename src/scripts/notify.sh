@@ -2,7 +2,7 @@
 #!/bin/bash
 
 # Ensure required environment variables are set
-if [ -z "$CIRCLE_SHA1" ] || [ -z "$CIRCLE_PROJECT_USERNAME" ] || [ -z "$CIRCLE_PROJECT_REPONAME" ] || [ -z "$CIRCLE_BRANCH" ] || [ -z "$CIRCLE_USERNAME" ] || [ -z "$CIRCLE_REPOSITORY_URL" ] || [ -z "$LEGACY_WEBHOOK_URL" ] || [ -z "$deployed_env" ]; then
+if [ -z "$CIRCLE_SHA1" ] || [ -z "$CIRCLE_PROJECT_USERNAME" ] || [ -z "$CIRCLE_PROJECT_REPONAME" ] || [ -z "$CIRCLE_BRANCH" ] || [ -z "$CIRCLE_USERNAME" ] || [ -z "$CIRCLE_REPOSITORY_URL" ] || [ -z "$webhook_url" ] || [ -z "$deployed_env" ]; then
   echo "One or more required environment variables are not set."
   exit 1
 fi
@@ -62,9 +62,9 @@ echo "$MS_TEAMS_MSG_TEMPLATE" > .ms_teams_message
 
 cat .ms_teams_message
 
-echo "$LEGACY_WEBHOOK_URL"
+echo "$webhook_url"
 
 curl --fail-with-body -H "Content-Type: application/json" \
       --data-binary @.ms_teams_message \
-      "$LEGACY_WEBHOOK_URL"
+      "$webhook_url"
 
