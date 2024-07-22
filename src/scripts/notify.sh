@@ -30,7 +30,7 @@ COMMIT_MESSAGE=$(git log --format=%B -n 1 "$CIRCLE_SHA1")
 
 # Note that the "\<<" in the heredoc declaration is escaped from
 # CircleCI's parameters syntax.
-MS_TEAMS_MSG_TEMPLATE=$(cat \<<'END_HEREDOC'
+MS_TEAMS_MSG_TEMPLATE=$(cat <<END_HEREDOC
 {
   "@type": "MessageCard",
   "@context": "http://schema.org/extensions",
