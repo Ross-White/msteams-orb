@@ -36,7 +36,7 @@ jobs:
             echo $LEGACY_WEBHOOK_URL
       - ms-teams-notify/notify:
           deployed_env: 'TEST'
-          webhook_url: << pipeline.parameters.LEGACY_WEBHOOK_URL >>
+          webhook_url: $LEGACY_WEBHOOK_URL
 workflows:
   test-deploy:
     jobs:
