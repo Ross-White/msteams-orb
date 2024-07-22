@@ -28,6 +28,10 @@ jobs:
     steps:
       - checkout
       # Run your orb's commands to validate them.
+      - run:
+          name: "Echo webhook url"
+          command: | 
+            echo $LEGACY_WEBHOOK_URL
       - ms-teams-notify/notify:
           deployed_env: 'TEST'
           webhook_url: $LEGACY_WEBHOOK_URL
