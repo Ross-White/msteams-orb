@@ -1,20 +1,22 @@
 #!/bin/bash
-#!/bin/bash
 
-# Ensure required environment variables are set
-if [ -z "$CIRCLE_SHA1" ] || [ -z "$CIRCLE_PROJECT_USERNAME" ] || [ -z "$CIRCLE_PROJECT_REPONAME" ] || [ -z "$CIRCLE_BRANCH" ] || [ -z "$CIRCLE_USERNAME" ] || [ -z "$CIRCLE_REPOSITORY_URL" ] || [ -z "$webhook_url" ] || [ -z "$deployed_env" ]; then
-  echo "One or more required environment variables are not set."
-  exit 1
-fi
+# Ensure variables are set
+: "${DEPLOYED_ENV:?Environment variable DEPLOYED_ENV is required}"
+: "${WEBHOOK_URL:?Environment variable WEBHOOK_URL is required}"
+: "${CIRCLE_BRANCH:?Environment variable CIRCLE_BRANCH is required}"
+: "${CIRCLE_USERNAME:?Environment variable CIRCLE_USERNAME is required}"
+: "${COMMIT_LINK:?Environment variable COMMIT_LINK is required}"
+: "${COMMIT_MESSAGE:?Environment variable COMMIT_MESSAGE is required}"
+: "${DEPLOYED_URL:?Environment variable DEPLOYED_URL is required}"
 
 # Set environment variables
 # DEV="https://www-dev.ecotricity.co.uk"
 # UAT="https://www-uat.ecotricity.co.uk"
 # PROD="https://www.ecotricity.co.uk"
 
-DEPLOYED_URL="$deployed_env"
-ENV="$deployed_env"
-WEBHOOK_URL="$webhook_url"
+DEPLOYED_URL="$DEPLOYED_ENV"
+ENV="$DEPLOYED_ENV"
+WEBHOOK_URL="$WEBHOOK_URL"
 
 SHORT_SHA1=$(echo -n "$CIRCLE_SHA1" | head -c 7)
 
