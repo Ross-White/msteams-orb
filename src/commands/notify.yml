@@ -12,6 +12,6 @@ steps:
   - run:
       environment:
         deployed_env: << parameters.deployed_env >>
-        webhook_url: << parameter.webhook_url >>
+        webhook_url: << parameters.webhook_url >>
       name: Notify MS Teams
       command: <<include(scripts/notify.sh)>>
