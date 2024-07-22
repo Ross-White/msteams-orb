@@ -29,12 +29,14 @@ jobs:
       - checkout
       # Run your orb's commands to validate them.
       - run:
-          name: "Echo webhook url"
+          name: "Export webhook url"
           command: | 
+            echo "Exporting webhook URL"
+            export LEGACY_WEBHOOK_URL=$LEGACY_WEBHOOK_URL
             echo $LEGACY_WEBHOOK_URL
       - ms-teams-notify/notify:
           deployed_env: 'TEST'
-          webhook_url: $LEGACY_WEBHOOK_URL
+          webhook_url: << pipeline.parameters.LEGACY_WEBHOOK_URL >>
 workflows:
   test-deploy:
     jobs:
