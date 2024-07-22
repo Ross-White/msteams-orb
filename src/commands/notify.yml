@@ -12,7 +12,7 @@ steps:
   - run:
       name: echo params
       command: |
-        echo << params.webhook_url >>
+        echo << parameters.webhook_url >>
   - run:
       environment:
         deployed_env: << parameters.deployed_env >>
