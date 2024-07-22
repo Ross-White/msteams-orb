@@ -8,9 +8,9 @@ if [ -z "$CIRCLE_SHA1" ] || [ -z "$CIRCLE_PROJECT_USERNAME" ] || [ -z "$CIRCLE_P
 fi
 
 # Set environment variables
-DEV="https://www-dev.ecotricity.co.uk"
-UAT="https://www-uat.ecotricity.co.uk"
-PROD="https://www.ecotricity.co.uk"
+# DEV="https://www-dev.ecotricity.co.uk"
+# UAT="https://www-uat.ecotricity.co.uk"
+# PROD="https://www.ecotricity.co.uk"
 
 DEPLOYED_URL="$deployed_env"
 ENV="$deployed_env"
@@ -30,7 +30,7 @@ COMMIT_MESSAGE=$(git log --format=%B -n 1 "$CIRCLE_SHA1")
 
 # Note that the "\<<" in the heredoc declaration is escaped from
 # CircleCI's parameters syntax.
-MS_TEAMS_MSG_TEMPLATE=$(cat <<END_HEREDOC
+MS_TEAMS_MSG_TEMPLATE=$(cat \<<END_HEREDOC
 {
   "@type": "MessageCard",
   "@context": "http://schema.org/extensions",
