@@ -63,9 +63,9 @@ echo "$MS_TEAMS_MSG_TEMPLATE" > .ms_teams_message
 
 cat .ms_teams_message
 
-echo $WEBHOOK_URL
+echo "$WEBHOOK_URL"
 
 curl --fail-with-body -H "Content-Type: application/json" \
       --data-binary @.ms_teams_message \
-      $WEBHOOK_URL
+      "$WEBHOOK_URL"
 
