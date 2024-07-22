@@ -3,11 +3,6 @@
 # Ensure variables are set
 : "${DEPLOYED_ENV:?Environment variable DEPLOYED_ENV is required}"
 : "${WEBHOOK_URL:?Environment variable WEBHOOK_URL is required}"
-: "${CIRCLE_BRANCH:?Environment variable CIRCLE_BRANCH is required}"
-: "${CIRCLE_USERNAME:?Environment variable CIRCLE_USERNAME is required}"
-: "${COMMIT_LINK:?Environment variable COMMIT_LINK is required}"
-: "${COMMIT_MESSAGE:?Environment variable COMMIT_MESSAGE is required}"
-: "${DEPLOYED_URL:?Environment variable DEPLOYED_URL is required}"
 
 # Set environment variables
 # DEV="https://www-dev.ecotricity.co.uk"
