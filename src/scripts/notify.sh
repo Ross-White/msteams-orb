@@ -12,6 +12,8 @@
 DEPLOYED_URL="$DEPLOYED_ENV"
 ENV="$DEPLOYED_ENV"
 
+WEBHOOK_URL=$(circleci env subst "${WEBHOOK_URL}")
+
 SHORT_SHA1=$(echo -n "$CIRCLE_SHA1" | head -c 7)
 
 if echo "$CIRCLE_REPOSITORY_URL" | grep -q "^git@github.com"; then
