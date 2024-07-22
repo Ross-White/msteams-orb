@@ -14,6 +14,7 @@ fi
 
 DEPLOYED_URL="$deployed_env"
 ENV="$deployed_env"
+WEBHOOK_URL="$webhook_url"
 
 SHORT_SHA1=$(echo -n "$CIRCLE_SHA1" | head -c 7)
 
@@ -62,9 +63,9 @@ echo "$MS_TEAMS_MSG_TEMPLATE" > .ms_teams_message
 
 cat .ms_teams_message
 
-echo "${webhook_url}"
+echo $WEBHOOK_URL
 
 curl --fail-with-body -H "Content-Type: application/json" \
       --data-binary @.ms_teams_message \
-      "${webhook_url}"
+      $WEBHOOK_URL
 

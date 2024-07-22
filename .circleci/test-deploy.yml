@@ -23,22 +23,14 @@ jobs:
   # Create jobs to test the commands of your orbs.
   # You may want to add additional validation steps to ensure the commands are working as expected.
   command-test:
-    environment:
-      - webhook_url: $LEGACY_WEBHOOK_URL
     docker:
       - image: cimg/base:current
     steps:
       - checkout
       # Run your orb's commands to validate them.
-      - run:
-          name: "Export webhook url"
-          command: | 
-            echo "Exporting webhook URL"
-            export LEGACY_WEBHOOK_URL=$LEGACY_WEBHOOK_URL
-            echo $LEGACY_WEBHOOK_URL
       - ms-teams-notify/notify:
           deployed_env: 'TEST'
-          # webhook_url: LEGACY_WEBHOOK_URL
+          webhook_url: $LEGACY_WEBHOOK_URL
 workflows:
   test-deploy:
     jobs:
