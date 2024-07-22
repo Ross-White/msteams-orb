@@ -2,7 +2,7 @@
 #!/bin/bash
 
 # Ensure required environment variables are set
-if [ -z "$CIRCLE_SHA1" ] || [ -z "$CIRCLE_PROJECT_USERNAME" ] || [ -z "$CIRCLE_PROJECT_REPONAME" ] || [ -z "$CIRCLE_BRANCH" ] || [ -z "$CIRCLE_USERNAME" ] || [ -z "$CIRCLE_REPOSITORY_URL" ] || [ -z "$webhook_url" ] || [ -z "$deployed_env" ]; then
+if [ -z "$CIRCLE_SHA1" ] || [ -z "$CIRCLE_PROJECT_USERNAME" ] || [ -z "$CIRCLE_PROJECT_REPONAME" ] || [ -z "$CIRCLE_BRANCH" ] || [ -z "$CIRCLE_USERNAME" ] || [ -z "$CIRCLE_REPOSITORY_URL" ] || [ -z "$LEGACY_WEBHOOK_URL" ] || [ -z "$deployed_env" ]; then
   echo "One or more required environment variables are not set."
   exit 1
 fi
