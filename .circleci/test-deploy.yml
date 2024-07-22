@@ -30,7 +30,7 @@ jobs:
       # Run your orb's commands to validate them.
       - ms-teams-notify/notify:
           deployed_env: 'TEST'
-          webhook_url: 'test/webhook'
+          webhook_url: $LEGACY_WEBHOOK_URL
 workflows:
   test-deploy:
     jobs:
