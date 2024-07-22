@@ -10,6 +10,10 @@ parameters:
     type: string
 steps:
   - run:
+      name: echo params
+      command: |
+        echo << params.webhook_url >>
+  - run:
       environment:
         deployed_env: << parameters.deployed_env >>
         webhook_url: << parameters.webhook_url >>
