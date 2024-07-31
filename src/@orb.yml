@@ -1,7 +1,7 @@
 version: 2.1
 
 description: >
-  Orb to send notification of app deployments to MS Teams channels
+  Sends notifications to MS Teams. Configured to work with Workflows App, using adaptive cards. 
 # What will your orb allow users to accomplish?
 # Descriptions should be short, simple, and informative.
 
