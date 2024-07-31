@@ -12,4 +12,4 @@ usage:
       jobs:
         - ms-teams-notify/notify
             DEPLOYED_ENV: PROD
-            WEBHOOK_URL: $MS_TEAMS_WEBHOOK_URL
+            WEBHOOK_URL: $MS_TEAMS_WORKFLOW_URL
