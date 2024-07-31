@@ -6,7 +6,7 @@ description: >
 usage:
   version: 2.1
   orbs:
-    ms-teams-notify: rosswhite/ms-teams-notify@1.0.0
+    ms-teams-notify: rosswhite/ms-teams-notify@0.0.1
   workflows:
     use-my-orb:
       jobs:

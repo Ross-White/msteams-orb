@@ -28,32 +28,46 @@ fi
 COMMIT_MESSAGE=$(git log --format=%B -n 1 "$CIRCLE_SHA1")
 
 MS_TEAMS_MSG_TEMPLATE=$(cat <<EOF
-{
-  "@type": "MessageCard",
-  "@context": "http://schema.org/extensions",
-  "themeColor": "14a603",
-  "summary": "CircleCI Deployment Notification",
-  "sections": [
-    {
-      "activityTitle": "## ${CIRCLE_BRANCH} deployed to [${ENV}](${DEPLOYED_URL})",
-      "facts": [
-        {
-          "name": "Author",
-          "value": "${CIRCLE_USERNAME}"
-        },
-        {
-          "name": "Revision",
-          "value": "${COMMIT_LINK}"
-        },
-        {
-          "name": "Commit",
-          "value": "${COMMIT_MESSAGE}"
+  {
+    "type": "message",
+    "attachments": [
+      {
+        "contentType": "application/vnd.microsoft.card.adaptive",
+        "content": {
+            "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
+            "version": "1.0",
+            "type": "AdaptiveCard",
+            "body": [
+                {
+                    "type": "TextBlock",
+                    "size": "medium",
+                    "weight": "bolder",
+                    "text": "${CIRCLE_BRANCH} deployed to [${ENV}](${DEPLOYED_URL})",
+                    "style": "heading",
+                    "wrap": true
+                },
+                {
+                    "type": "FactSet",
+                    "facts": [
+                        {
+                            "title": "Author",
+                            "value": "${CIRCLE_USERNAME}"
+                        },
+                        {
+                            "title": "Revision",
+                            "value": "${COMMIT_LINK}"
+                        },
+                        {
+                            "title": "Commit",
+                            "value": "${COMMIT_MESSAGE}"
+                        }
+                    ]
+                }
+            ]
         }
-      ],
-      "markdown": true
-    }
-  ]
-}
+      }
+    ]
+  }
 EOF
 )
 
