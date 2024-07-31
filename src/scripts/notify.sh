@@ -5,11 +5,7 @@
 : "${WEBHOOK_URL:?Environment variable WEBHOOK_URL is required}"
 
 # Set environment variables
-# DEV="https://www-dev.ecotricity.co.uk"
-# UAT="https://www-uat.ecotricity.co.uk"
-# PROD="https://www.ecotricity.co.uk"
 
-DEPLOYED_URL="$DEPLOYED_ENV"
 ENV="$DEPLOYED_ENV"
 
 WEBHOOK_URL=$(circleci env subst "${WEBHOOK_URL}")
@@ -42,13 +38,17 @@ MS_TEAMS_MSG_TEMPLATE=$(cat <<EOF
                     "type": "TextBlock",
                     "size": "medium",
                     "weight": "bolder",
-                    "text": " ${CIRCLE_PROJECT_REPONAME} deployed to [${ENV}](${DEPLOYED_URL})",
+                    "text": " ${CIRCLE_PROJECT_REPONAME} deployment to [${ENV}](${DEPLOYED_URL})",
                     "style": "heading",
                     "wrap": true
                 },
                 {
                     "type": "FactSet",
                     "facts": [
+                        {
+                            "title": "Status",
+                            "value": "${STATUS}"
+                        },
                         {
                             "title": "Branch",
                             "value": "${CIRCLE_BRANCH}"

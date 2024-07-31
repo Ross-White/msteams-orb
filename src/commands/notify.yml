@@ -10,12 +10,18 @@ parameters:
     type: string
 steps:
   - run:
-      name: echo params
-      command: |
-        echo << parameters.WEBHOOK_URL >>
-  - run:
+      when: on_success
       environment:
         DEPLOYED_ENV: << parameters.DEPLOYED_ENV >>
         WEBHOOK_URL: << parameters.WEBHOOK_URL >>
-      name: Notify MS Teams
+        STATUS: "SUCCESS"
+      name: Notify MS Teams of successful deployment
+      command: <<include(scripts/notify.sh)>>
+  - run:
+      when: on_fail
+      environment:
+        DEPLOYED_ENV: << parameters.DEPLOYED_ENV >>
+        WEBHOOK_URL: << parameters.WEBHOOK_URL >>
+        STATUS: "FAIL"
+      name: Notify MS Teams of successful deployment
       command: <<include(scripts/notify.sh)>>
