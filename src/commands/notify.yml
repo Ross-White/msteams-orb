@@ -5,10 +5,11 @@ parameters:
   DEPLOYED_ENV:
     description: The environment being deployed
     type: string
-    default: "DEV"
+    default: 'DEV'
   DEPLOYED_URL:
     description: The URL of deployed frontend app
     type: string
+    default: ''
   WEBHOOK_URL:
     description: The configured URL for the message to be posted to
     type: string
