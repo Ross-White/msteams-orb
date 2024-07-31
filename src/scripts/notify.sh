@@ -42,13 +42,17 @@ MS_TEAMS_MSG_TEMPLATE=$(cat <<EOF
                     "type": "TextBlock",
                     "size": "medium",
                     "weight": "bolder",
-                    "text": "${CIRCLE_BRANCH} deployed to [${ENV}](${DEPLOYED_URL})",
+                    "text": " ${CIRCLE_PROJECT_REPONAME} deployed to [${ENV}](${DEPLOYED_URL})",
                     "style": "heading",
                     "wrap": true
                 },
                 {
                     "type": "FactSet",
                     "facts": [
+                        {
+                            "title": "Branch",
+                            "value": "${CIRCLE_BRANCH}"
+                        },
                         {
                             "title": "Author",
                             "value": "${CIRCLE_USERNAME}"
