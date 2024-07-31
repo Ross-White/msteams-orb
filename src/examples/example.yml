@@ -6,8 +6,10 @@ description: >
 usage:
   version: 2.1
   orbs:
-    <orb-name>: <namespace>/<orb-name>@1.2.3
+    ms-teams-notify: rosswhite/ms-teams-notify@0.0.1
   workflows:
     use-my-orb:
       jobs:
-        - <orb-name>/<job-name>
+        - ms-teams-notify/notify:
+            DEPLOYED_ENV: 'PROD'
+            WEBHOOK_URL: $MS_TEAMS_WORKFLOW_URL

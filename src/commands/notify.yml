@@ -5,17 +5,30 @@ parameters:
   DEPLOYED_ENV:
     description: The environment being deployed
     type: string
+    default: 'DEV'
+  DEPLOYED_URL:
+    description: The URL of deployed frontend app
+    type: string
+    default: ''
   WEBHOOK_URL:
     description: The configured URL for the message to be posted to
     type: string
 steps:
   - run:
-      name: echo params
-      command: |
-        echo << parameters.WEBHOOK_URL >>
-  - run:
+      when: on_success
       environment:
         DEPLOYED_ENV: << parameters.DEPLOYED_ENV >>
+        DEPLOYED_URL: << parameters.DEPLOYED_URL >>
         WEBHOOK_URL: << parameters.WEBHOOK_URL >>
-      name: Notify MS Teams
+        STATUS: "SUCCESS"
+      name: Notify MS Teams of successful deployment
+      command: <<include(scripts/notify.sh)>>
+  - run:
+      when: on_fail
+      environment:
+        DEPLOYED_ENV: << parameters.DEPLOYED_ENV >>
+        DEPLOYED_URL: << parameters.DEPLOYED_URL >>
+        WEBHOOK_URL: << parameters.WEBHOOK_URL >>
+        STATUS: "FAILED"
+      name: Notify MS Teams of failed deployment
       command: <<include(scripts/notify.sh)>>
